@@ -26,11 +26,19 @@ func TestSubstraction(t *testing.T) {
 }
 
 func TestDivision(t *testing.T) {
-	result := Division(10, 2)
+	result, _ := Division(10, 2)
 	expected := float64(5)
 
 	if result != expected {
 		assertEqual(t, expected, result)
+	}
+}
+
+func TestDivisionByZero(t *testing.T) {
+	_, err := Division(10, 0)
+
+	if err == nil {
+		t.Errorf("Expected an error for division by zero, but got nil")
 	}
 }
 
