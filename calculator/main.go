@@ -7,8 +7,6 @@ import (
 	"strconv"
 )
 
-var allowedOpeations = []string{"addition", "subtraction", "division", "multiplication"}
-
 func getUserInput(message string) string {
 	var input string
 	fmt.Println(message)
@@ -17,6 +15,7 @@ func getUserInput(message string) string {
 }
 
 func validateOperation(operation string) bool {
+	allowedOpeations := []string{"addition", "subtraction", "division", "multiplication"}
 	return slices.Contains(allowedOpeations, operation)
 }
 
