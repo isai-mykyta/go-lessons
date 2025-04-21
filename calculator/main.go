@@ -20,54 +20,45 @@ func validateOperation(operation string) bool {
 }
 
 func getUserArgument() (float64, error) {
-	argument := getUserInput("Please, provide first number")
+	argument := getUserInput("Please, provide argument")
 	parsedArgument, validationError := strconv.ParseFloat(argument, 64)
 	return parsedArgument, validationError
 }
 
+func getOperation() string {
+	operation := getUserInput("Please, chose operation, valid options are: addition, subtraction, division and multiplication")
+	isOperationValid := validateOperation(operation)
+
+	if !isOperationValid {
+		fmt.Println("❌ Invalid operation, please, try again.")
+		getOperation()
+	}
+
+	return operation
+}
+
+func getArgument() float64 {
+	argument, validationError := getUserArgument()
+
+	if validationError != nil {
+		fmt.Println("❌ Invalid argument, please, try again.")
+		getArgument()
+	}
+
+	return argument
+}
+
 func main() {
-	var operation string
-	var isOperationValid bool
-
-	for !isOperationValid {
-		operation = getUserInput("Please, chose operation, valid options are: addition, subtraction, division and multiplication")
-		isOperationValid = validateOperation(operation)
-
-		if !isOperationValid {
-			fmt.Println("❌ Invalid operation, please, try again.")
-		}
-	}
-
-	var aArgument float64
+	operation := getOperation()
+	aArgument := getArgument()
+	bArgument := getArgument()
 
 	for {
-		parsedA, validationError := getUserArgument()
-
-		if validationError != nil {
-			fmt.Println("❌ Invalid argument, please, try again.")
-			continue
-		}
-
-		aArgument = parsedA
-		break
-	}
-
-	var bArgument float64
-
-	for {
-		parsedB, validationError := getUserArgument()
-
-		if validationError != nil {
-			fmt.Println("❌ Invalid argument, please, try again.")
-			continue
-		}
-
-		if parsedB == 0 && operation == "division" {
+		if bArgument == 0 && operation == "division" {
 			fmt.Println("❌ Invalid argument, division by zero is not allowed.")
+			bArgument = getArgument()
 			continue
 		}
-
-		bArgument = parsedB
 		break
 	}
 
