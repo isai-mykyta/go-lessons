@@ -36,3 +36,8 @@ func ValidateTimestampt(value int64) bool {
 
 	return t.After(past) && t.Before(future)
 }
+
+func ValidateUrl(url string) bool {
+	urlRegex := `^https?://[^\s/$.?#].[^\s]*$`
+	return regexp.MustCompile(urlRegex).MatchString(url)
+}

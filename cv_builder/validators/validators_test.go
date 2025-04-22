@@ -36,3 +36,8 @@ func TestValidateTimestampt(t *testing.T) {
 	assertEqual(true, ValidateTimestampt(time.Now().Unix()), t)
 	assertEqual(false, ValidateTimestampt(time.Date(1900, time.January, 1, 0, 0, 0, 0, time.UTC).Unix()), t)
 }
+
+func TestValidateUrl(t *testing.T) {
+	assertEqual(true, ValidateUrl("https://example.com"), t)
+	assertEqual(false, ValidateUrl("invalid:url"), t)
+}

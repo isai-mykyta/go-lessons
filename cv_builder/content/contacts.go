@@ -6,20 +6,20 @@ import (
 )
 
 type contacts struct {
-	Email       *string `json:"email,omitempty"`
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	Email       string `json:"email,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 }
 
-func NewContact(email, phoneNumber *string) (*contacts, error) {
-	if email == nil && phoneNumber == nil {
+func NewContact(email, phoneNumber string) (*contacts, error) {
+	if email == "" && phoneNumber == "" {
 		return nil, errors.New("either email or phone number must be provided")
 	}
 
-	if email != nil && !validators.ValidateEmail(*email) {
+	if email != "" && !validators.ValidateEmail(email) {
 		return nil, errors.New("invalid email")
 	}
 
-	if phoneNumber != nil && !validators.ValidatePhoneNumber(*phoneNumber) {
+	if phoneNumber != "" && !validators.ValidatePhoneNumber(phoneNumber) {
 		return nil, errors.New("invalid phone number")
 	}
 

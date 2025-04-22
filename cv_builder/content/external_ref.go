@@ -1,6 +1,9 @@
 package content
 
-import "errors"
+import (
+	"cv_builder/validators"
+	"errors"
+)
 
 type externalRef struct {
 	Title string `json:"title"`
@@ -8,7 +11,7 @@ type externalRef struct {
 }
 
 func NewExternalRef(title, url string) (*externalRef, error) {
-	if title == "" || url == "" {
+	if title == "" || !validators.ValidateUrl(url) {
 		return nil, errors.New("title and url must be provided")
 	}
 
